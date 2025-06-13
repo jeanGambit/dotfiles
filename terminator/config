@@ -1,0 +1,54 @@
+[global_config]
+[keybindings]
+[profiles]
+  [[default]]
+    background_color = "#150014"
+    background_darkness = 0.9
+    background_type = transparent
+    font = Hurmit Nerd Font Propo 13
+    foreground_color = "#efdced"
+    palette = "#3e003c:#f98a79:#44cc6f:#d2a920:#91aafa:#ee7de6:#27c3d9:#ff82f6:#880084:#fcad9f:#4de67d:#ebbe2f:#afc2fb:#f2a6eb:#42daf1:#ffe9fc"
+    use_system_font = False
+    title_transmit_fg_color = "#c0bfbc"
+    title_transmit_bg_color = "#813d9c"
+    title_receive_bg_color = "#ed333b"
+    title_inactive_fg_color = "#deddda"
+    title_inactive_bg_color = "#1c71d8"
+  [[default_old]]
+    background_darkness = 0.9
+    background_type = transparent
+    font = Hack Nerd Font Mono 13
+    foreground_color = "#00ff00"
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    use_system_font = False
+    title_transmit_bg_color = "#26a269"
+    title_receive_bg_color = "#ed333b"
+  [[purp]]
+    background_color = "#17011f"
+    background_darkness = 0.9
+    background_type = transparent
+    font = Hack Nerd Font Mono 13
+    foreground_color = "#ffffff"
+    palette = "#261d35:#d97780:#7aa860:#bc904f:#6b9bd9:#b77ed1:#52a9a9:#beb1da:#584875:#e6949a:#8ebf73:#d3a563:#88b1e5:#c899de:#63c0bf:#f2eff8"
+    use_system_font = False
+    title_transmit_bg_color = "#26a269"
+    title_receive_bg_color = "#ed333b"
+  [[purp2]]
+    background_color = "#150014"
+    background_darkness = 0.9
+    background_type = transparent
+    font = Hack Nerd Font Mono 13
+    foreground_color = "#efdced"
+    palette = "#3e003c:#f98a79:#44cc6f:#d2a920:#91aafa:#ee7de6:#27c3d9:#ff82f6:#880084:#fcad9f:#4de67d:#ebbe2f:#afc2fb:#f2a6eb:#42daf1:#ffe9fc"
+    use_system_font = False
+    title_transmit_bg_color = "#26a269"
+    title_receive_bg_color = "#ed333b"
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+[plugins]
