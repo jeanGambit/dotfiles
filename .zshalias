@@ -1,0 +1,42 @@
+alias zsh="$EDITOR $HOME/.zshrc && source $HOME/.zshrc"
+
+# Open Files with Extensions ---------------------------------
+# Open text files in Vim
+alias -s txt="vim"
+
+# Open HTML files in Firefox Developer Edition
+# alias -s html="firefox-developer-edition"
+
+# Open PDFs in Okular
+# alias -s pdf="okular"
+
+# Open JPG and PNG in Gwenview
+# alias -s {jpg,png}="gwenview"
+
+# Open C and C++ files in VS Code
+# alias -s {c,cpp}="code"
+
+# Command suffixes
+# Pipe output to less pager
+alias -g L="| less"
+
+# Pipe output to xclip to copy to clipboard
+alias -g X="| xclip -selection c"
+
+# Append output to file  
+alias -g T="| tee -a" 
+
+# Grep with line numbers and case-insensitive
+alias -g G="| grep -ni" 
+
+# GNU core
+# ls
+alias ll="ls -l"
+alias la="ls -la"
+# cp
+# mv
+
+# Languages
+# java
+# c
+# python
