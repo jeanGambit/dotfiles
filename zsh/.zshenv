@@ -1,8 +1,18 @@
+# Load Order:
+# `.zshenv` → `.zprofile` → `.zshrc` → `.zlogin` → `.zlogout`
+#
+# XDG DIRECTORIES ---------------------------------------------
+XDG_CONFIG_HOME=$HOME/dotfiles
+XDG_DATA_HOME=$HOME/.local/share
+XDG_CACHE_HOME=$HOME/.cache
+XDG_STATE_HOME=$HOME/.local/state
+
 # ZSH --------------------------------------------------------
-HISTFILE=~/.zsh_history
+ZDOTDIR=$XDG_CONFIG_HOME/zsh
+HISTFILE=$SDOTDIR/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
-
+#HISTORY_IGNORE="(clear|bg|fg|cd|cd -|cd ..|exit|date|w|ls|l|ll|lll)"
 setopt HIST_IGNORE_SPACE  # Don't save when prefixed with space
 setopt HIST_IGNORE_DUPS   # Don't save duplicate lines
 setopt SHARE_HISTORY      # Share history between sessions
