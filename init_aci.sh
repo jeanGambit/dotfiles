@@ -30,7 +30,7 @@ for dir in "${DEFAULT_DIRS[@]}"; do
 done
 
 echo "Installing Oh-My-Posh"
-curl -s https://ohmyposh.dev/install.sh | zsh -s
+curl -s https://ohmyposh.dev/install.sh | bash -s
 
 echo "Setup complete! Please restart your shell or log out and log back in."
 
