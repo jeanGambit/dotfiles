@@ -5,8 +5,8 @@
 
 # Is root?
 if [[ $EUID -eq 0 ]]; then
-    echo "Please run this script as a regular user, not root."
-    exit 1
+  echo "Please run this script as a regular user, not root."
+  exit 1
 fi
 cd
 # Symlink .zshenv to read $ZDOTDIR
@@ -26,11 +26,10 @@ chsh -s $(which zsh)
 echo "Creating user directories..."
 DEFAULT_DIRS=("Pictures" "Videos" "Programs" "Workspace" "Documents")
 for dir in "${DEFAULT_DIRS[@]}"; do
-    mkdir -p "$HOME/$dir"
+  mkdir -p "$HOME/$dir"
 done
 
 echo "Installing Oh-My-Posh"
 curl -s https://ohmyposh.dev/install.sh | bash -s
 
 echo "Setup complete! Please restart your shell or log out and log back in."
-

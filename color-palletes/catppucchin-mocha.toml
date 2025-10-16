@@ -1,0 +1,11 @@
+[mocha]
+base = "#1e1e2e"
+rosewater = "#f4dbd6"
+flame = "#f28f8f"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+pink = "#f5a97f"
+purple = "#cba6f7"
+yellow = "#e3e5e8"
+red = "#f38ba8"
