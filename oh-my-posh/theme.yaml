@@ -1,0 +1,42 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+upgrade:
+  source: 'cdn'
+  interval: '168h'
+  auto: false
+  notice: false
+palette:
+  black: &black "#262B44"
+  blue: &blue "#4B95E9"
+  green: &green "#36A259"
+  orange: &orange "#F07623"
+  purple: &purple "#6D006A"
+  red: &red "#D81E5B"
+  white: &white "#E0DEF4"
+  yellow: &yellow "#F3AE35"
+transient_prompt:
+  foreground_templates:
+    - "{{if gt .Code 0}} *red {{end}}"
+    - "{{if eq .Code 0}} *magenta {{end}}"
+  background: transparent
+  template: '❯ '
+# -- Main Blocks --
+blocks:
+- type: prompt
+  alignment: left
+  filler: ⎯
+  overflow: hide
+  segments:
+  - template: " {{ .Path }} "
+    foreground: "#ffffff"
+    powerline_symbol: 
+    background: "#61AFEF"
+    type: path
+    style: powerline
+- type: prompt
+  newline: true
+  segments:
+  - template: "❯ "
+    type: text
+    style: plain
+  
+version: 3
