@@ -1,0 +1,26 @@
+{  
+	"layer": "top",  
+	"modules-left": ["niri/workspaces", "niri/mode", "niri/window"],  
+	"modules-center": ["clock"],  
+	"modules-right": [
+    "pulseaudio",
+    "cpu",
+    "memory"
+  ],  
+	"niri/window": {  
+		"max-length": 50  
+	},  
+	"clock": {  
+		"format-alt": "{:%a, %d. %b  %H:%M}"  
+	},
+  "cpu": {  
+    "interval": 10,  
+    "format": "CPU {usage}% ",  
+    "max-length": 10  
+  },
+  "memory": {  
+    "interval": 30,  
+    "format": "M {}% ",  
+    "max-length": 10  
+  }
+}
