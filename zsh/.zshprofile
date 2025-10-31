@@ -1,6 +1,7 @@
 # Load Order:
 # .zenv -> [.zprofile] -> .zshrc -> .zlogin. -> .zlogout
-# Add to this file exports of programs HOMEs
+# Add to this file exports of programs HOMEs.
+# PATH, agents, session-wide exports
 
 # Apps ==================================================
 # Distrobox

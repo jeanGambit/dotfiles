@@ -1,6 +1,7 @@
 # Load Order:
 # .zshenv → .zprofile → .zshrc → .zlogin → .zlogout
-#
+# Add here programs init, config and setup
+source .zshalias
 # Zsh Plugins ============================================================================
 ## TETRTIS 
 autoload -Uz tetriscurses
