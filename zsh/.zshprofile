@@ -2,6 +2,7 @@
 # .zenv -> [.zprofile] -> .zshrc -> .zlogin. -> .zlogout
 # Add to this file exports of programs HOMEs.
 # PATH, agents, session-wide exports
+PATH=="$PATH:/home/gambit/.local/bin"
 
 # Apps ==================================================
 # Distrobox

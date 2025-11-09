@@ -1,0 +1,9 @@
+[Unit]
+Description=XWayland Satellite
+
+[Service]
+ExecStart=/path/to/xwayland-satellite
+Restart=always
+
+[Install]
+WantedBy=default.target
