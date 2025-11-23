@@ -1,5 +1,8 @@
 alias zsh="$EDITOR $HOME/.zshrc && source $HOME/.zshrc"
 
+# system
+alias off="sudo shutdown now"
+
 # Open Files with Extensions ---------------------------------
 alias v="nvim"
 # Open text files in NeoVim
@@ -10,8 +13,9 @@ alias -s txt="nvim"
 alias ll="ls -l"
 alias la="ls -la"
 # cp
+alias cp="cp -v "
 # mv
-
+alias mv="mv -pv "
 # Programs
 
 # Languages

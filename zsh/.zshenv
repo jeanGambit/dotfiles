@@ -23,3 +23,5 @@ setopt CORRECT
 
 bindkey '[[1;5D' backward-word
 bindkey '[[1;5C' backward-word
+
+export PATH=$PATH:/home/gambit/.local/bin

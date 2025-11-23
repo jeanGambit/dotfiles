@@ -103,10 +103,10 @@ output "DP-3" {
     // so to put another output directly adjacent to it on the right, set its x to 1920.
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
-    position x=1280 y=0
-    hot-corners {
-      top-right
-    }
+    //position x=1280 y=0
+    //hot-corners {
+    //  top-right
+    //}
 }
 
 // You can configure outputs by their name, which you can find
@@ -144,17 +144,23 @@ output "DP-2" {
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
     //position x=1280 y=0
-    hot-corners {
-      top-right
-    }
+    //hot-corners {
+    //  top-right
+    //}
 }
 
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Layout
+layer-rule {
+    match namespace="^quickshell$"
+    place-within-backdrop true
+}
+
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 16
+    gaps 5
+    background-color "transparent"
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -311,7 +317,10 @@ layout {
 // See the binds section below for more spawn examples.
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
-spawn-at-startup "waybar"
+spawn-at-startup "waybar" 
+spawn-sh-at-startup "swaybg -i ~/Pictures/wallpaper-1.jpg"
+spawn-at-startup "firefox"
+spawn-at-startup "wezterm"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -391,7 +400,7 @@ window-rule {
 
 spawn-at-startup "xwayland-satellite"
 environment {
-    DISPLAY ":1"
+    DISPLAY ":0"
 }
 
 /-xwayland-satellite {  
@@ -415,7 +424,7 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     // Mod+T hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
-    Mod+T hotkey-overlay-title="Open a Terminal: WezTerm" { spawn "wezterm"; }
+    Mod+T hotkey-overlay-title="Open a Terminal: WezTerm" { spawn-sh "wezterm"; }
     // Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+Space hotkey-overlay-title="Rofi" { spawn "rofi" "-show" "drun"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }

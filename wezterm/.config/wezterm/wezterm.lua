@@ -14,7 +14,7 @@ config.cursor_blink_rate = 400 -- Blink interval in milliseconds
 
 -- Font --
 config.font_size = 15
-config.font = wezterm.font("HurmitNerdFont")
+--config.font = wezterm.font("HurmitNerdFont")
 
 -- Color --
 config.color_scheme = "catppuccin-macchiato"
@@ -29,5 +29,5 @@ config.window_padding = {
 }
 -- Tabs --
 config.hide_tab_bar_if_only_one_tab = true
-
+config.enable_wayland = false 
 return config
