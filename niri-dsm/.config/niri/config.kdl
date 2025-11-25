@@ -1,14 +1,23 @@
+environment {
+    DISPLAY ":0"
+    XDG_CURRENT_DESKTOP "niri"
+    QT_QPA_PLATFORM "wayland"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    QT_QPA_PLATFORMTHEME "gtk3"
+    QT_QPA_PLATFORMTHEME_QT6 "gtk3"
+}
+
 // Start up applications
-spawn-at-startup "waybar" 
-spawn-sh-at-startup "swaybg -i ~/Pictures/wallpaper-1.jpg"
+//spawn-at-startup "waybar" 
+//spawn-sh-at-startup "swaybg -i ~/Pictures/wallpaper-1.jpg"
 spawn-at-startup "firefox"
 spawn-at-startup "wezterm"
-// Clipboard history
-spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
-// Start the shell
+spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &" // Clipboard history
 spawn-at-startup "dms" "run"
-// (Optional) replace with a polkit agent for escalation prompts
-// spawn-at-startup "{{POLKIT_AGENT_PATH}}"
+spawn-sh-at-startup "dms-export-niri"
+spawn-sh-at-startup "/usr/lib/polkit-kde-authentication-agent-1 &" // Polkit
+spawn-at-startup "xwayland-satellite"
+prefer-no-csd
 
 // Input Configuration
 input {
@@ -77,8 +86,9 @@ layout {
     // default-column-width {}
 
     focus-ring {
-        width 4
-        active-color "#7fc8ff"
+        width 2
+        //active-color "#7fc8ff"
+        active-color "#cbcbcb"
         inactive-color "#505050"
     }
 
@@ -120,6 +130,43 @@ animations {
 }
 
 window-rule {
+    match app-id=r#"^org\.gnome\."#
+    draw-border-with-background false
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    match app-id="Alacritty"
+    match app-id="zen"
+    match app-id="com.mitchellh.ghostty"
+    match app-id="kitty"
+    draw-border-with-background false
+}
+
+window-rule {
+//    match is-active=false
+    opacity 0.9
+}
+// has to be after previous opacity rule
+window-rule {
+    match app-id="firefox"
+    opacity 1.0
+}
+
+window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+
+// DMS Settings window as floating by default
+window-rule {
+    match app-id=r#"org.quickshell$"#
+    match title="Settings"
+    open-floating true
+}
+/-window-rule {
     // This regular expression is intentionally made as specific as possible,
     // since this is the default config, and we want no false positives.
     // You can get away with just app-id="wezterm" if you want.
@@ -144,39 +191,39 @@ window-rule {
       // block-out-from "screencast"
 }
 
-// Example: enable rounded corners for all windows.
-// (This example rule is commented out with a "/-" in front.)
-window-rule {
-    geometry-corner-radius 12
-    clip-to-geometry true
-}
-
-spawn-at-startup "xwayland-satellite"
-environment {
-    DISPLAY ":0"
-    XDG_CURRENT_DESKTOP "niri"
-    QT_QPA_PLATFORM "wayland"
-    ELECTRON_OZONE_PLATFORM_HINT "auto"
-    QT_QPA_PLATFORMTHEME "gtk3"
-    QT_QPA_PLATFORMTHEME_QT6 "gtk3"
-}
-
-/-xwayland-satellite {  
-//    path "~/source/rs/xwayland-satellite/target/release/xwayland-satellite"  
-}
-
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
     // Applications
-    Mod+M hotkey-overlay-title="Niri Settings" { spawn-sh "nvim ~/.config/niri/config.kdl"; }
+    Mod+Shift+M hotkey-overlay-title="Niri Settings" { spawn-sh "nvim ~/.config/niri/config.kdl"; }
     Mod+T hotkey-overlay-title="Open a Terminal: WezTerm" { spawn-sh "wezterm"; }
-    Mod+Space hotkey-overlay-title="Rofi" { spawn "rofi" "-show" "drun"; }
     Mod+B hotkey-overlay-title="Firefox" { spawn "firefox"; }
     Mod+R hotkey-overlay-title="Reload waybar" { spawn-sh "pkill waybar || waybar &"; }
+    // Application Launchers
+    Mod+Space hotkey-overlay-title="Application Launcher" {
+        spawn "dms" "ipc" "call" "spotlight" "toggle";
+    }
+    Mod+V hotkey-overlay-title="Clipboard Manager" {
+        spawn "dms" "ipc" "call" "clipboard" "toggle";
+    }
+    Mod+M hotkey-overlay-title="Task Manager" {
+        spawn "dms" "ipc" "call" "processlist" "toggle";
+    }
+    Mod+Tab hotkey-overlay-title="Settings" {
+        spawn "dms" "ipc" "call" "settings" "toggle";
+    }
+    Mod+N hotkey-overlay-title="Notification Center" {
+        spawn "dms" "ipc" "call" "notifications" "toggle";
+    }
+    Mod+I hotkey-overlay-title="Browse Wallpapers" {
+        spawn "dms" "ipc" "call" "dankdash" "wallpaper";
+    }
     // System    
     Mod+Shift+E { quit; }
     Ctrl+Alt+Delete { quit; }
-    Mod+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    // Security
+    Mod+Alt+L hotkey-overlay-title="Lock Screen" {
+        spawn "dms" "ipc" "call" "lock" "lock";
+    }
     Mod+O repeat=false { toggle-overview; }
     Mod+Q repeat=false { close-window; }
     Super+Ctrl+F1 { spawn "chvt" "1"; }
@@ -184,21 +231,31 @@ binds {
     Super+Ctrl+F3 { spawn "chvt" "3"; }
     Super+Ctrl+F4 { spawn "chvt" "4"; }
     // Media and Sound
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
-    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    // Audio Controls
+    XF86AudioRaiseVolume allow-when-locked=true {
+        spawn "dms" "ipc" "call" "audio" "increment" "3";
+    }
+    XF86AudioLowerVolume allow-when-locked=true {
+        spawn "dms" "ipc" "call" "audio" "decrement" "3";
+    }
+    XF86AudioMute allow-when-locked=true {
+        spawn "dms" "ipc" "call" "audio" "mute";
+    }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
     XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
     XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
     XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
     XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
-    // Brightness
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
-
+    // Brightness Controls
+    XF86MonBrightnessUp allow-when-locked=true {
+       spawn "dms" "ipc" "call" "brightness" "increment" "5" "";
+    }
+    XF86MonBrightnessDown allow-when-locked=true {
+       spawn "dms" "ipc" "call" "brightness" "decrement" "5" "";
+    }
     // Window focus movements
     // Focus with arrows (Mod+Arrow):
-    Mod+Left  { focus-column-left; }
+
     Mod+Down  { focus-workspace-down; }
     Mod+Up    { focus-workspace-up; }
     Mod+Right { focus-column-right; }
@@ -214,18 +271,18 @@ binds {
     Mod+D     { focus-column-right; }
     // Move with arrows
     Mod+Ctrl+Left  { move-column-left; }
-    Mod+Ctrl+Down  { move-window-down; }
-    Mod+Ctrl+Up    { move-window-up; }
+    Mod+Ctrl+Down  { move-window-to-workspace-down; }
+    Mod+Ctrl+Up    { move-window-to-workspace-up; }
     Mod+Ctrl+Right { move-column-right; }
     // Move with vim motions
     Mod+Ctrl+H     { move-column-left; }
-    Mod+Ctrl+J     { move-window-down; }
-    Mod+Ctrl+K     { move-window-up; }
+    Mod+Ctrl+J     { move-window-to-workspace-down; }
+    Mod+Ctrl+K     { move-window-to-workspace-up; }
     Mod+Ctrl+L     { move-column-right; }
     // Move with WASD
     Mod+Ctrl+A     { move-column-left; }
-    Mod+Ctrl+S     { move-window-down; }
-    Mod+Ctrl+W     { move-window-up; }
+    Mod+Ctrl+S     { move-window-to-workspace-down; }
+    Mod+Ctrl+W     { move-window-to-workspace-up; }
     Mod+Ctrl+D     { move-column-right; }
 
     Mod+Home { focus-column-first; }
@@ -318,8 +375,8 @@ binds {
     Mod+Ctrl+C { center-visible-columns; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+V       { toggle-window-floating; }
-    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    Mod+Z       { toggle-window-floating; }
+    Mod+Shift+Z { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,

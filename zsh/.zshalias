@@ -15,7 +15,7 @@ alias la="ls -la"
 # cp
 alias cp="cp -v "
 # mv
-alias mv="mv -pv "
+alias mv="mv -v "
 # Programs
 
 # Languages
