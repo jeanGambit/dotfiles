@@ -24,5 +24,8 @@ setopt CORRECT
 bindkey '[[1;5D' backward-word
 bindkey '[[1;5C' backward-word
 
-#export PATH=$PATH:/home/gambit/.local/bin
-export PATH=$PATH:/home/galymzhan/.local/bin
+export PATH=$PATH:$HOME/.local/bin
+
+export EDITOR=nvim
+
+export OCI_CLI_AUTH=security_token

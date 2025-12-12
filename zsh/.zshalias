@@ -17,7 +17,44 @@ alias cp="cp -v "
 # mv
 alias mv="mv -v "
 # Programs
+# docker
+alias ds="systemctl start docker"
+alias dl="docker login iad.ocir.io"
+alias di="docker images"
+alias dp="docker push "
+# kubectl
+function set_ns {
+  if [[ $# -gt 0 ]]; then
+    export NAMESPACE="$1"
+    echo "namespace is set to $1"
+  fi
+}
+function fc_ns { set_ns framework-core; }
+function kgpn { echo "kubectl get pods -n $NAMESPACE"; kubectl get pods -n "$NAMESPACE"; }
 
+alias k="kubectl"
+alias kg="kubectl get"
+alias kgp="kubectl get pods"
+# alias kgpn="kubectl get pods -n $NAMESPACE"
+alias kgpng="kubectl get pods -n ${NAMESPACE} | grep "
+alias kln="kubectl logs -n framework-core "
+alias klnf="kubectl logs -n framework-core -f "
+alias kl="kubectl logs "
+alias klf="kubectl logs -f "
+alias kgd="kubectl get deployments"
+alias kgdg="kubectl get deployments | grep "
+alias kgdn="kubectl get deployments -n framework-core"
+alias kgdng="kubectl get deployments -n framework-core | grep "
+alias ksun="kubectl -n framework-core scale --replicas=1 deployment "
+alias ksdn="kubectl -n framework-core scale --replicas=0 deployment "
+alias ksu="kubectl scale --replicas=1 deployment "
+alias ksd="kubectl scale --replicas=0 deployment "
+alias atpup="kubectl scale --replicas=1 deployment ai-atp-operator -n framework-core"
+alias atpdown="kubectl scale --replicas=0 deployment ai-atp-operator -n framework-core"
+alias edit_atp_monitor="kubectl edit cronjob ai-atp-monitor -n framework-core"
+alias edit_atp_cj="kubectl edit cronjob ai-atp-utility -n framework-core"
+alias create_atp_cj="kubectl create job --from=cronjob/ai-atp-utility ai-atp-password-reset-job -n framework-core"
+alias deleteatp_cj="kubectl delete job ai-atp-password-reset-job -n framework-core"
 # Languages
 ## java
 ## c
